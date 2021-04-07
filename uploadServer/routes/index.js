@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 const storage = multer.diskStorage({
   destination(req, file, callback) {
-    callback(null, './images');
+    callback(null, __dirname + '/../public/images');
   },
   filename(req, file, callback) {
     callback(null, `${file.fieldname}_${Date.now()}_${file.originalname}`);
@@ -21,6 +21,7 @@ const upload = multer({ storage });
 router.post('/upload', upload.array('photo', 3), (req, res) => {
   console.log('file', req.files);
   console.log('body', req.body);
+  console.log('path', __dirname + '/../public/images');
   res.status(200).json({
     message: 'success!',
   });
